@@ -7,7 +7,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [cheshire "5.10.0"]
                  [duct/logger "0.3.0"]
-                 [http-kit "2.4.0-alpha6"]
+                 [http-kit "2.3.0"]
                  [integrant "0.8.0"]
                  [com.google.auth/google-auth-library-oauth2-http "0.20.0"]]
   :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"
