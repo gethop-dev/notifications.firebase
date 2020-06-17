@@ -1,4 +1,4 @@
-(defproject magnet/notifications.firebase "0.1.0"
+(defproject magnet/notifications.firebase "0.1.1-SNAPSHOT"
   :description "A duct library for managing notifications with firebase"
   :url "http://github.com/magnetcoop/notifications.firebase"
   :min-lein-version "2.9.0"
