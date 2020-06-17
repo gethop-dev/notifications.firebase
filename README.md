@@ -94,7 +94,7 @@ Now that we have our `Firebase` record, we are ready to use the methods defined 
   - A `Firebase` record.
   - logger: usually a reference to `:duct/logger` key. But you can use any Integrant key derived from `:duct/logger` (such as `:duct.logger/timbre`).
   - recipient: registration token to send a message to. It can be a single value or a vector of multiple tokens.
-  - message: a map with the information that will be send as a notification. The values can be strings, numbers or simple keywords. They will be converted to strings due to a Firebase limitation. It will be send as the `data` key in the [Firebase message object](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages#Message ).
+  - message: a map with the information that will be send as a notification. The values can be strings, numbers, simple keywords or UUID's. They will be converted to strings due to a Firebase limitation. It will be send as the `data` key in the [Firebase message object](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages#Message ).
   - options: optional configuration parameters that will be send in the [Firebase message object](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages#Message ). See the [docs](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages#Message ) for available keys.
 * returning value:
   - `:success?` `true` if the notification was successfully sent to all the recipients. `false` if sending the notification failed for at least one recipient.

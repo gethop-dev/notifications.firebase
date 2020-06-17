@@ -7,7 +7,8 @@
                          :multiple ::recipients))
 (s/def ::message-values (s/or :string string?
                               :number number?
-                              :keyword simple-keyword?))
+                              :keyword simple-keyword?
+                              :uuid uuid?))
 (s/def ::message (s/map-of keyword? ::message-values))
 (s/def ::opts map?)
 
