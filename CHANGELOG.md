@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.1.3] - Unreleased
+- Switch from the [Firebase REST API](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages) to the [Firebase Admin Java SDK](https://github.com/firebase/firebase-admin-java).
+- Reimplement send-notification method to send notifications to multiple recipients in batches. This will significantly improve performance.
+
 ## [0.1.2] - 2020-06-17
 - Allow UUID's in the notification message
 

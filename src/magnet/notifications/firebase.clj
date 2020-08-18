@@ -1,80 +1,94 @@
 (ns magnet.notifications.firebase
-  (:require [cheshire.core :as json]
+  (:require [clojure.spec.alpha :as s]
             [clojure.string :as str]
             [duct.logger :refer [log]]
             [integrant.core :as ig]
-            [magnet.notifications.core :as core]
-            [org.httpkit.client :as http]
-            [clojure.spec.alpha :as s])
-  (:import [com.google.auth.oauth2 ServiceAccountCredentials ServiceAccountCredentials$Builder AccessToken]))
+            [magnet.notifications.core :as core])
+  (:import [com.google.auth.oauth2 ServiceAccountCredentials]
+           [com.google.firebase FirebaseApp FirebaseOptions]
+           [com.google.firebase.messaging MulticastMessage FirebaseMessaging]
+           [java.util UUID]))
 
 (def ^:const base-url "https://fcm.googleapis.com/v1/projects/")
 (def ^:const firebase-scope "https://www.googleapis.com/auth/firebase.messaging")
+(def ^:const multicast-recipient-limit 500)
 
 (defn ^ServiceAccountCredentials construct-service-credentials
   [{:keys [client-id client-email private-key-id private-key project-id]}]
   (let [credentials (ServiceAccountCredentials/fromPkcs8
-                     client-id client-email (str/replace private-key "\\n" "\n") private-key-id [firebase-scope])]
-    (-> (^ServiceAccountCredentials$Builder .toBuilder credentials)
+                     client-id client-email
+                     (str/replace private-key "\\n" "\n")
+                     private-key-id
+                     [firebase-scope])]
+    (-> (.toBuilder credentials)
         (.setProjectId project-id)
         (.build))))
 
-(defn- get-access-token [^ServiceAccountCredentials service-credentials]
-  (let [access-token (.refreshAccessToken service-credentials)]
-    (^AccessToken .getTokenValue access-token)))
+(defn- random-firebase-app-name
+  "Firebase Application names must be unique, so we create a random name
+  to avoid collisions. This is important if any other Firebase library
+  is being used, or multiple records of this one are initialized."
+  []
+  (str (UUID/randomUUID)))
+
+(defn- init-firebase-app! ^FirebaseApp [google-credentials]
+  (let [serviceCredentials (construct-service-credentials google-credentials)
+        firebaseOptions (-> (FirebaseOptions/builder)
+                            (.setCredentials serviceCredentials)
+                            (.build))
+        firebase-app-name (random-firebase-app-name)]
+    (FirebaseApp/initializeApp firebaseOptions firebase-app-name)))
 
 (defn- message->firebase-message [message]
   (reduce-kv (fn [m k v]
                (if (keyword? v)
-                 (assoc m k (name v))
-                 (assoc m k (str v))))
+                 (assoc m (name k) (name v))
+                 (assoc m (name k) (str v))))
              {} message))
 
-(defn send-notification* [logger access-token project-id message opts registration-token]
-  (try
-    (let [{:keys [status error]}
-          @(http/request {:url (str base-url project-id "/messages:send")
-                          :method :post
-                          :oauth-token access-token
-                          :headers {"Content-Type" "application/json"}
-                          :body (json/generate-string
-                                 {:message (merge
-                                            {:token registration-token
-                                             :data (message->firebase-message message)}
-                                            opts)})})]
-      (if (and (not error) (<= 200 status 299))
-        {:success? true}
-        (let [error {:status status
-                     :error error
-                     :recipient registration-token}]
-          (log logger :error :firebase-notification (assoc error :message message))
-          {:success? false
-           :error-details error})))
-    (catch Exception e
-      (let [error {:reason (class e)
-                   :error-details (.getMessage e)
-                   :recipient registration-token}]
-        (log logger :error :firebase-notification error)
-        {:success? false
-         :error-details error}))))
+(defn- firebase-responses->errors [recipient firebase-responses]
+  (reduce-kv
+   (fn [errors k v]
+     (if-let [exception (.getException v)]
+       (conj errors {:recipient k
+                     :error (class exception)
+                     :error-details (.getMessage exception)})
+       errors))
+   []
+   (zipmap recipient firebase-responses)))
 
-(defn send-notification [^ServiceAccountCredentials service-credentials logger recipient message opts]
+(defn- send-notification* [firebaseApp logger recipient firebase-message opts]
+  (let [multicastMessage (-> (MulticastMessage/builder)
+                             (.putAllData firebase-message)
+                             (.addAllTokens recipient)
+                             (.build))
+        response (-> (FirebaseMessaging/getInstance firebaseApp)
+                     (.sendMulticast multicastMessage))]
+    (if (= (.getSuccessCount response) (count recipient))
+      {:success? true}
+      (let [errors (firebase-responses->errors recipient (.getResponses response))]
+        (log logger :error :firebase-notification {:success-count (.getSuccessCount response)
+                                                   :error-count (.getFailureCount response)
+                                                   :errors errors})
+        {:success? false :errors errors}))))
+
+;;TODO: Implement options map by creating the needed Java objects.
+(defn- send-notification [firebaseApp logger recipient message opts]
   {:pre [(s/valid? ::core/logger logger)
          (s/valid? ::core/recipient recipient)
          (s/valid? ::core/message message)
          (s/valid? ::core/opts opts)]}
-  (let [access-token (get-access-token service-credentials)
-        project-id (.getProjectId service-credentials)
-        send-fn (partial send-notification* logger access-token project-id message opts)
-        results (pmap send-fn (flatten (vector recipient)))]
+  (let [firebase-message (message->firebase-message message)
+        results (->> (flatten (vector recipient))
+                     (partition-all multicast-recipient-limit)
+                     (pmap #(send-notification* firebaseApp logger % firebase-message opts)))]
     (if (every? :success? results)
       {:success? true}
       {:success? false
-       :errors (keep #(when-not (:success? %)
-                        (:error-details %)) results)})))
+       :errors (reduce concat (keep :errors results))})))
 
-(s/def ::service-credentials #(instance? ServiceAccountCredentials %))
-(s/def ::send-notification-args (s/cat :service-credentials ::service-credentials
+(s/def ::firebaseApp #(instance? FirebaseApp %))
+(s/def ::send-notification-args (s/cat :firebaseApp ::firebaseApp
                                        :logger ::core/logger
                                        :recipient ::core/recipient
                                        :message ::core/message
@@ -84,13 +98,16 @@
   :args ::send-notification-args
   :ret ::core/send-notification-ret)
 
-(defrecord Firebase [^ServiceAccountCredentials service-credentials]
+(defrecord Firebase [^FirebaseApp firebaseApp]
   core/Notifications
   (send-notification [this logger recipient message]
-    (send-notification service-credentials logger recipient message {}))
+    (send-notification firebaseApp logger recipient message {}))
   (send-notification [this logger recipient message opts]
-    (send-notification service-credentials logger recipient message opts)))
+    (send-notification firebaseApp logger recipient message opts)))
 
 (defmethod ig/init-key :magnet.notifications/firebase [_ {:keys [google-credentials]}]
-  (let [service-credentials (construct-service-credentials google-credentials)]
-    (->Firebase service-credentials)))
+  (let [firebaseApp (init-firebase-app! google-credentials)]
+    (->Firebase firebaseApp)))
+
+(defmethod ig/halt-key! :magnet.notifications/firebase [_ {:keys [firebaseApp]}]
+  (.delete firebaseApp))

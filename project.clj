@@ -5,11 +5,9 @@
   :license {:name "Mozilla Public License 2.0"
             :url "https://www.mozilla.org/en-US/MPL/2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
-                 [cheshire "5.10.0"]
                  [duct/logger "0.3.0"]
-                 [http-kit "2.3.0"]
                  [integrant "0.8.0"]
-                 [com.google.auth/google-auth-library-oauth2-http "0.20.0"]]
+                 [com.google.firebase/firebase-admin "6.16.0"]]
   :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"
                                       :username :env/clojars_username
                                       :password :env/clojars_password

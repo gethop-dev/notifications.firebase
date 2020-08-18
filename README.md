@@ -3,8 +3,8 @@
 
 # Firebase notifications
 
-A [Duct](https://github.com/duct-framework/duct) library that 
-provides [Integrant](https://github.com/weavejester/integrant) keys 
+A [Duct](https://github.com/duct-framework/duct) library that
+provides [Integrant](https://github.com/weavejester/integrant) keys
 for managing notifications in [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging/ ).
 
 ## Installation
@@ -21,7 +21,7 @@ To use this library add the following key to your configuration:
 
 This key expects a configuration map with one mandatory key:
 
-* `:google-credentials`: A map with five elements: 
+* `:google-credentials`: A map with five elements:
   * project-id
   * private-key-id
   * private-key
@@ -93,26 +93,28 @@ Now that we have our `Firebase` record, we are ready to use the methods defined 
 * parameters:
   - A `Firebase` record.
   - logger: usually a reference to `:duct/logger` key. But you can use any Integrant key derived from `:duct/logger` (such as `:duct.logger/timbre`).
-  - recipient: registration token to send a message to. It can be a single value or a vector of multiple tokens.
-  - message: a map with the information that will be send as a notification. The values can be strings, numbers, simple keywords or UUID's. They will be converted to strings due to a Firebase limitation. It will be send as the `data` key in the [Firebase message object](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages#Message ).
+  - recipient: registration token to send a message to. It can be a single value or a collection of multiple tokens.
+  - message: a map with the information that will be send as a notification. The values can be strings, numbers, simple keywords or UUID's. They will be converted to strings due to a Firebase limitation.
   - options: optional configuration parameters that will be send in the [Firebase message object](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages#Message ). See the [docs](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages#Message ) for available keys.
 * returning value:
   - `:success?` `true` if the notification was successfully sent to all the recipients. `false` if sending the notification failed for at least one recipient.
   - `:errors` list of errors that happened when sending the notification. It's one error for each recipient.
 * Example:
 ```clj
-user> (core/send-notification fb-record logger ["token1" "token2"] {:header "Hello"} {})
+user> (core/send-notification fb-record logger "token1" {:header "Hello"} {})
 {:success? true}
 
 user> (core/send-notification fb-record logger ["token1" "invalid-token"] {:header "Hello"} {})
 {:success? false
- :errors [{:status 400, :recipient "invalid-token"}]}
+ :errors [{:recipient "invalid-token"
+           :error com.google.firebase.messaging.FirebaseMessagingException
+           :error-details "The registration token is not a valid FCM registration token"}]}
 ```
 
 ## License
 
 Copyright (c) 2020 Magnet S Coop.
 
-The source code for the library is subject to the terms of the 
-Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed 
+The source code for the library is subject to the terms of the
+Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
