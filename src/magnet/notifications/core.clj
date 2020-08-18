@@ -23,7 +23,13 @@
 (s/def ::send-notification-ret (s/keys :req-un [::success]
                                        :opt-un [::errors]))
 
+(s/def ::send-notification-async-args ::send-notification-args)
+(s/def ::send-notification-async-ret future?)
+
 (defprotocol Notifications
   (send-notification
+    [this logger recipient message]
+    [this logger recipient message opts])
+  (send-notification-async
     [this logger recipient message]
     [this logger recipient message opts]))

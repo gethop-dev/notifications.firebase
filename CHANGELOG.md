@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. This change
 ## [0.1.3] - Unreleased
 - Switch from the [Firebase REST API](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages) to the [Firebase Admin Java SDK](https://github.com/firebase/firebase-admin-java).
 - Reimplement send-notification method to send notifications to multiple recipients in batches. This will significantly improve performance.
+- Add send-notification-async method that returns a Future without waiting to the request to end.
 
 ## [0.1.2] - 2020-06-17
 - Allow UUID's in the notification message

@@ -111,6 +111,28 @@ user> (core/send-notification fb-record logger ["token1" "invalid-token"] {:head
            :error-details "The registration token is not a valid FCM registration token"}]}
 ```
 
+#### `send-notification-async`
+
+Same as `send-notification`, but returns a Clojure
+[Future](https://clojuredocs.org/clojure.core/future) object. The
+return value can be obtained by derefing the object. Note that the
+notification will be sent no matter if it was derefed or not. This can
+be useful if we are not interested in the answer and we don't want to
+block the main thread.
+
+```clj
+user> (def result (core/send-notification fb-record logger "token1" {:header "Hello"} {}))
+#'magnet.notifications.firebase/a
+
+user> result
+#<Future@4413771e: :pending>
+
+user> @result
+(wait until the request is ended)
+{:success? true}
+
+```
+
 ## License
 
 Copyright (c) 2020 Magnet S Coop.

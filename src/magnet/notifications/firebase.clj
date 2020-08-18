@@ -98,12 +98,24 @@
   :args ::send-notification-args
   :ret ::core/send-notification-ret)
 
+(defn- send-notification-async [firebaseApp logger recipient message opts]
+  (future
+    (send-notification firebaseApp logger recipient message opts)))
+
+(s/fdef send-notification-async
+  :args ::send-notification-args
+  :ret ::core/send-notification-async-ret)
+
 (defrecord Firebase [^FirebaseApp firebaseApp]
   core/Notifications
   (send-notification [this logger recipient message]
     (send-notification firebaseApp logger recipient message {}))
   (send-notification [this logger recipient message opts]
-    (send-notification firebaseApp logger recipient message opts)))
+    (send-notification firebaseApp logger recipient message opts))
+  (send-notification-async [this logger recipient message]
+    (send-notification-async firebaseApp logger recipient message {}))
+  (send-notification-async [this logger recipient message opts]
+    (send-notification-async firebaseApp logger recipient message opts)))
 
 (defmethod ig/init-key :magnet.notifications/firebase [_ {:keys [google-credentials]}]
   (let [firebaseApp (init-firebase-app! google-credentials)]
