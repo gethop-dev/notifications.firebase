@@ -110,7 +110,13 @@ user> (core/send-notification fb-record logger ["token1" "invalid-token"] {:head
            :error com.google.firebase.messaging.FirebaseMessagingException
            :error-details "The registration token is not a valid FCM registration token"}]}
 ```
+* Example with options:
 
+```clj
+user> (core/send-notification fb-record logger "token1" {:header "Hello"} {:android {:priority :high} :apns {:headers {:apns-priority "10"}}})
+{:success? true}
+
+```
 #### `send-notification-async`
 
 Same as `send-notification`, but returns a Clojure
