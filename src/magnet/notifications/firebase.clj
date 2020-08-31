@@ -3,10 +3,12 @@
             [clojure.string :as str]
             [duct.logger :refer [log]]
             [integrant.core :as ig]
-            [magnet.notifications.core :as core])
+            [magnet.notifications.core :as core]
+            [magnet.notifications.firebase.config :as config])
   (:import [com.google.auth.oauth2 ServiceAccountCredentials]
            [com.google.firebase FirebaseApp FirebaseOptions]
-           [com.google.firebase.messaging MulticastMessage FirebaseMessaging]
+           [com.google.firebase.messaging
+            MulticastMessage MulticastMessage$Builder FirebaseMessaging]
            [java.util UUID]))
 
 (def ^:const base-url "https://fcm.googleapis.com/v1/projects/")
@@ -61,6 +63,7 @@
   (let [multicastMessage (-> (MulticastMessage/builder)
                              (.putAllData firebase-message)
                              (.addAllTokens recipient)
+                             (config/set-message-config opts)
                              (.build))
         response (-> (FirebaseMessaging/getInstance firebaseApp)
                      (.sendMulticast multicastMessage))]
@@ -72,8 +75,7 @@
                                                    :errors errors})
         {:success? false :errors errors}))))
 
-;;TODO: Implement options map by creating the needed Java objects.
-(defn- send-notification [firebaseApp logger recipient message opts]
+(defn send-notification [firebaseApp logger recipient message opts]
   {:pre [(s/valid? ::core/logger logger)
          (s/valid? ::core/recipient recipient)
          (s/valid? ::core/message message)
