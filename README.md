@@ -113,7 +113,9 @@ user> (core/send-notification fb-record logger ["token1" "invalid-token"] {:head
 * Example with options:
 
 ```clj
-user> (core/send-notification fb-record logger "token1" {:header "Hello"} {:android {:priority :high} :apns {:headers {:apns-priority "10"}}})
+user> (core/send-notification fb-record logger "token1" {:header "Hello"} {:android {:priority :high} 
+                                                                           :apns {:headers {:apns-priority "10"}
+                                                                                  :payload {:content-available true}})
 {:success? true}
 
 ```

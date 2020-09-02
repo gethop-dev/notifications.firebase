@@ -1,6 +1,8 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.1.5] - 2020-09-02
+- Add option to configure the APNS content-available key
 ## [0.1.4] - 2020-08-31
 - Implement notification priority configuration for Android and APN messages. The priority can now be set using the opts argument of the send-notification and send-notification-async methods.
 ## [0.1.3] - 2020-08-18
