@@ -113,9 +113,10 @@ user> (core/send-notification fb-record logger ["token1" "invalid-token"] {:head
 * Example with options:
 
 ```clj
-user> (core/send-notification fb-record logger "token1" {:header "Hello"} {:android {:priority :high} 
+user> (core/send-notification fb-record logger "token1" {:header "Hello"} {:android {:priority :high}
                                                                            :apns {:headers {:apns-priority "10"}
-                                                                                  :payload {:content-available true}})
+                                                                                  :payload {:content-available true
+                                                                                            :badge 0}})
 {:success? true}
 
 ```
@@ -143,7 +144,7 @@ user> @result
 
 ## License
 
-Copyright (c) 2020 Magnet S Coop.
+Copyright (c) 2020, 2021 Magnet S Coop.
 
 The source code for the library is subject to the terms of the
 Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
