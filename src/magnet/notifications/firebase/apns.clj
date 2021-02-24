@@ -2,9 +2,10 @@
   (:require [clojure.walk :as walk])
   (:import [com.google.firebase.messaging ApnsConfig Aps]))
 
-(defn- payload->Aps [{:keys [content-available]}]
+(defn- payload->Aps [{:keys [content-available badge]}]
   (cond-> (Aps/builder)
     content-available (.setContentAvailable content-available)
+    badge (.setBadge badge)
     :always (.build)))
 
 (defn apns-options->ApnsConfig
