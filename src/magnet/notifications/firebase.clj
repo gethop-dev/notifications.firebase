@@ -114,13 +114,13 @@
 
 (defrecord Firebase [^FirebaseApp firebaseApp]
   core/Notifications
-  (send-notification [this logger recipient message]
+  (send-notification [_ logger recipient message]
     (send-notification firebaseApp logger recipient message {}))
-  (send-notification [this logger recipient message opts]
+  (send-notification [_ logger recipient message opts]
     (send-notification firebaseApp logger recipient message opts))
-  (send-notification-async [this logger recipient message]
+  (send-notification-async [_ logger recipient message]
     (send-notification-async firebaseApp logger recipient message {}))
-  (send-notification-async [this logger recipient message opts]
+  (send-notification-async [_ logger recipient message opts]
     (send-notification-async firebaseApp logger recipient message opts)))
 
 (defmethod ig/init-key :magnet.notifications/firebase [_ {:keys [google-credentials]}]
