@@ -19,7 +19,7 @@
   :profiles {:dev [:project/dev :profiles/dev]
              :profiles/dev {}
              :project/dev {:plugins [[jonase/eastwood "0.3.11"]
-                                     [lein-cljfmt "0.6.7"]]}
+                                     [lein-cljfmt/lein-cljfmt "0.8.0"]]}
              :repl {:repl-options {:init-ns magnet.notifications.firebase
                                    :host "0.0.0.0"
                                    :port 4001}}})
