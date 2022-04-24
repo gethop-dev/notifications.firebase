@@ -12,10 +12,14 @@
            [java.util UUID]))
 
 (def ^:const base-url "https://fcm.googleapis.com/v1/projects/")
-(def ^:const firebase-scope "https://www.googleapis.com/auth/firebase.messaging")
-(def ^:const multicast-recipient-limit 500)
+(def ^:const ^:private firebase-scope
+  "https://www.googleapis.com/auth/firebase.messaging")
 
-(defn ^ServiceAccountCredentials construct-service-credentials
+(def ^:const ^:private multicast-recipient-limit
+  500)
+
+(defn- construct-service-credentials
+  ^ServiceAccountCredentials
   [{:keys [client-id client-email private-key-id private-key project-id]}]
   (let [credentials (ServiceAccountCredentials/fromPkcs8
                      client-id client-email
@@ -75,7 +79,8 @@
                                                    :errors errors})
         {:success? false :errors errors}))))
 
-(defn send-notification [firebaseApp logger recipient message opts]
+(defn- send-notification
+  [firebaseApp logger recipient message opts]
   {:pre [(s/valid? ::core/logger logger)
          (s/valid? ::core/recipient recipient)
          (s/valid? ::core/message message)
