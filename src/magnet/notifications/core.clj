@@ -18,9 +18,13 @@
                                        :message ::message
                                        :opts ::opts))
 
-(s/def ::success boolean?)
-(s/def ::errors (s/coll-of map? :kind seqable?))
-(s/def ::send-notification-ret (s/keys :req-un [::success]
+(s/def ::success? boolean?)
+(s/def ::error-type #{::invalid-recipient ::other-error})
+(s/def ::implementation-error-details (s/keys :req-un [::error-class ::error-message]))
+(s/def ::error (s/keys :req-un [::recipient ::error-type]
+                       :opt-un [::implementation-error-details]))
+(s/def ::errors (s/coll-of ::error :kind seqable?))
+(s/def ::send-notification-ret (s/keys :req-un [::success?]
                                        :opt-un [::errors]))
 
 (s/def ::send-notification-async-args ::send-notification-args)

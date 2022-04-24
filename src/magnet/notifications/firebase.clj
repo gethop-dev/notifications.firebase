@@ -55,11 +55,19 @@
 (defn- firebase-responses->errors [recipient firebase-responses]
   (reduce-kv
    (fn [errors k ^SendResponse v]
-     (if-let [exception ^FirebaseMessagingException (.getException v)]
-       (conj errors {:recipient k
-                     :error (class exception)
-                     :error-details (.getMessage exception)})
-       errors))
+     (if (.isSuccessful v)
+       errors
+       (let [exception ^FirebaseMessagingException (.getException v)
+             error-class (class exception)
+             error-message (.getMessage exception)
+             error-type (if (and (= error-class FirebaseMessagingException)
+                                 (= error-message "Requested entity was not found."))
+                          ::core/invalid-recipient
+                          ::core/other-error)]
+         (conj errors {:recipient k
+                       :error-type error-type
+                       :implementation-error-details {:error-class error-class
+                                                      :error-message error-message}}))))
    []
    (zipmap recipient firebase-responses)))
 
