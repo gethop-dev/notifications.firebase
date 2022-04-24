@@ -63,13 +63,13 @@
    (zipmap recipient firebase-responses)))
 
 (defn- send-notification* [firebaseApp logger recipient firebase-message opts]
-  (let [multicastMessage (-> (MulticastMessage/builder)
-                             (.putAllData firebase-message)
-                             (.addAllTokens recipient)
-                             (config/set-message-config opts)
-                             (.build))
+  (let [multicast-message-builder (-> (MulticastMessage/builder)
+                                      (.putAllData firebase-message)
+                                      (.addAllTokens recipient)
+                                      (config/set-message-config opts))
+        multicast-message (.build ^MulticastMessage$Builder multicast-message-builder)
         response (-> (FirebaseMessaging/getInstance firebaseApp)
-                     (.sendMulticast multicastMessage))]
+                     (.sendMulticast multicast-message))]
     (if (= (.getSuccessCount response) (count recipient))
       {:success? true}
       (let [errors (firebase-responses->errors recipient (.getResponses response))]
