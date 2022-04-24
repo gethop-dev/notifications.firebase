@@ -7,7 +7,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [duct/logger "0.3.0"]
                  [integrant "0.8.0"]
-                 [com.google.firebase/firebase-admin "6.16.0"]]
+                 [com.google.firebase/firebase-admin "8.1.0"]]
   :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"
                                       :username :env/clojars_username
                                       :password :env/clojars_password
