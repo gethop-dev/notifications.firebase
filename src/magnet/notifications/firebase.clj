@@ -8,7 +8,8 @@
   (:import [com.google.auth.oauth2 ServiceAccountCredentials]
            [com.google.firebase FirebaseApp FirebaseOptions]
            [com.google.firebase.messaging
-            MulticastMessage MulticastMessage$Builder FirebaseMessaging]
+            MulticastMessage MulticastMessage$Builder FirebaseMessaging
+            SendResponse FirebaseMessagingException]
            [java.util UUID]))
 
 (def ^:const ^:private firebase-scope
@@ -53,8 +54,8 @@
 
 (defn- firebase-responses->errors [recipient firebase-responses]
   (reduce-kv
-   (fn [errors k v]
-     (if-let [exception (.getException v)]
+   (fn [errors k ^SendResponse v]
+     (if-let [exception ^FirebaseMessagingException (.getException v)]
        (conj errors {:recipient k
                      :error (class exception)
                      :error-details (.getMessage exception)})
