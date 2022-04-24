@@ -7,7 +7,11 @@
     (AndroidConfig$Priority/NORMAL)))
 
 (defn android-options->AndroidConfig
-  [{:keys [priority] :as android-options}]
+  "Sets message configuration options for Android platform
+
+  Sets the message builder configuration options that are specific to
+  the Android platform."
+  [{:keys [priority]}]
   (cond-> (AndroidConfig/builder)
     priority (.setPriority (android-priority->AndroidMessagePriority priority))
     :always (.build)))

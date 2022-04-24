@@ -9,6 +9,10 @@
     :always (.build)))
 
 (defn apns-options->ApnsConfig
+  "Sets message configuration options for Apple platform
+
+  Sets the message builder configuration options that are specific to
+  the Apple platform (APNS)."
   [{:keys [headers payload]}]
   (cond-> (ApnsConfig/builder)
     headers (.putAllHeaders (walk/stringify-keys headers))
