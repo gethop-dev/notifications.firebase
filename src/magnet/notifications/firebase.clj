@@ -127,5 +127,5 @@
   (let [firebaseApp (init-firebase-app! google-credentials)]
     (->Firebase firebaseApp)))
 
-(defmethod ig/halt-key! :magnet.notifications/firebase [_ {:keys [firebaseApp]}]
+(defmethod ig/halt-key! :magnet.notifications/firebase [_ {:keys [^FirebaseApp firebaseApp]}]
   (.delete firebaseApp))
