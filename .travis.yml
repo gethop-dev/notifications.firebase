@@ -2,8 +2,11 @@ language: clojure
 lein: 2.9.8
 dist: focal
 jdk:
-script: lein do cljfmt check, eastwood, test :all
   -openjdk11
+before_install:
+  - wget "https://github.com/clj-kondo/clj-kondo/releases/download/v${CLJ_KONDO_RELEASE}/clj-kondo-${CLJ_KONDO_RELEASE}-linux-static-amd64.zip" -q -O ./clj-kondo.zip
+  - unzip ./clj-kondo.zip
+script: ./clj-kondo --lint src && if [ -d test ]; then clj-kondo --lint test; fi && lein do cljfmt check, eastwood, test :all
 deploy:
   provider: script
   skip_cleanup: true
