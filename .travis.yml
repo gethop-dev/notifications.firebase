@@ -1,9 +1,9 @@
 language: clojure
-lein: 2.9.0
-dist: xenial
+lein: 2.9.8
+dist: focal
 jdk:
-  -openjdk8
 script: lein do cljfmt check, eastwood, test :all
+  -openjdk11
 deploy:
   provider: script
   skip_cleanup: true
