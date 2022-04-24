@@ -11,7 +11,6 @@
             MulticastMessage MulticastMessage$Builder FirebaseMessaging]
            [java.util UUID]))
 
-(def ^:const base-url "https://fcm.googleapis.com/v1/projects/")
 (def ^:const ^:private firebase-scope
   "https://www.googleapis.com/auth/firebase.messaging")
 
