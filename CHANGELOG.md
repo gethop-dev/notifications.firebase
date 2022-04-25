@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.1.7] - 2022-04-25
+- Return implementation agnostic errors. We now provide a spec for the errors returned from the library functions. The spec includes both the mandatory implementation-agnostic error values, and the optional implementation-specific error details.
+- Make internal implementatino details private
+- Upgrade to the latest version of Firebase library
+
 ## [0.1.6] - 2021-02-24
 - Add the option to configure the APs badge key. Although it's not
   officially documented, according to our tests, it is mandatory to

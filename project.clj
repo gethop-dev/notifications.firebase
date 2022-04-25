@@ -1,5 +1,5 @@
-(defproject magnet/notifications.firebase "0.1.6"
-  :description "A duct library for managing notifications with firebase"
+(defproject magnet/notifications.firebase "0.1.7"
+  :description "A duct library for managing notifications with Firebase Cloud Messaging"
   :url "http://github.com/magnetcoop/notifications.firebase"
   :min-lein-version "2.9.0"
   :license {:name "Mozilla Public License 2.0"
