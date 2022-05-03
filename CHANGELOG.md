@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file. This change
 
 ## [UNRELEASED]
 
+## [0.1.8] - 2022-04-03
+
 ### Added
 - Add an additional internal implementation error that also produces a `:magnet.notifications.core/invalid-recipient` error.
 
@@ -37,7 +39,8 @@ All notable changes to this project will be documented in this file. This change
 ## [0.1.0] - 2020-06-17
 - First release
 
-[UNRELEASED]: https://github.com/magnetcoop/notifications.firebase/compare/v0.1.7...HEAD
+[UNRELEASED]: https://github.com/magnetcoop/notifications.firebase/compare/v0.1.8...HEAD
+[0.1.8] https://github.com/magnetcoop/notifications.firebase/compare/0.1.7...0.1.8
 [0.1.7] https://github.com/magnetcoop/notifications.firebase/compare/0.1.6...0.1.7
 [0.1.6] https://github.com/magnetcoop/notifications.firebase/compare/0.1.5...0.1.6
 [0.1.5] https://github.com/magnetcoop/notifications.firebase/compare/0.1.4...0.1.5
