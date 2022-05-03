@@ -61,7 +61,8 @@
              error-class (class exception)
              error-message (.getMessage exception)
              error-type (if (and (= error-class FirebaseMessagingException)
-                                 (= error-message "Requested entity was not found."))
+                                 (or (= error-message "Requested entity was not found.")
+                                     (= error-message "The registration token is not a valid FCM registration token")))
                           ::core/invalid-recipient
                           ::core/other-error)]
          (conj errors {:recipient k

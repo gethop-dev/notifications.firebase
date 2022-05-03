@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [UNRELEASED]
+
+### Added
+- Add an additional internal implementation error that also produces a `:magnet.notifications.core/invalid-recipient` error.
+
 ## [0.1.7] - 2022-04-25
 - Return implementation agnostic errors. We now provide a spec for the errors returned from the library functions. The spec includes both the mandatory implementation-agnostic error values, and the optional implementation-specific error details.
 - Make internal implementatino details private
@@ -31,3 +36,13 @@ All notable changes to this project will be documented in this file. This change
 
 ## [0.1.0] - 2020-06-17
 - First release
+
+[UNRELEASED]: https://github.com/magnetcoop/notifications.firebase/compare/v0.1.7...HEAD
+[0.1.7] https://github.com/magnetcoop/notifications.firebase/compare/0.1.6...0.1.7
+[0.1.6] https://github.com/magnetcoop/notifications.firebase/compare/0.1.5...0.1.6
+[0.1.5] https://github.com/magnetcoop/notifications.firebase/compare/0.1.4...0.1.5
+[0.1.4] https://github.com/magnetcoop/notifications.firebase/compare/0.1.3...0.1.4
+[0.1.3] https://github.com/magnetcoop/notifications.firebase/compare/0.1.2...0.1.3
+[0.1.2] https://github.com/magnetcoop/notifications.firebase/compare/0.1.1...0.1.2
+[0.1.1] https://github.com/magnetcoop/notifications.firebase/compare/0.1.0...0.1.1
+[0.1.0] https://github.com/magnetcoop/notifications.firebase/releases/tag/0.1.0
