@@ -49,7 +49,8 @@ All notable changes to this project will be documented in this file. This change
 ## [0.1.0] - 2020-06-17
 - First release
 
-[UNRELEASED]: https://github.com/gethop-dev/notifications.firebase/compare/v0.1.9...HEAD
+[UNRELEASED]: https://github.com/gethop-dev/notifications.firebase/compare/v0.1.10...HEAD
+[0.1.10]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.9...0.1.10
 [0.1.9]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.8...0.1.9
 [0.1.8]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.7...0.1.8
 [0.1.7]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.6...0.1.7
