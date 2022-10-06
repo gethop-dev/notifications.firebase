@@ -1,5 +1,5 @@
 [![ci-cd](https://github.com/gethop-dev/notifications.firebase/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/gethop-dev/notifications.firebase/actions/workflows/ci-cd.yml)
-[![Clojars Project](https://img.shields.io/clojars/v/magnet/notifications.firebase.svg)](https://clojars.org/magnet/notifications.firebase)
+[![Clojars Project](https://img.shields.io/clojars/v/dev.gethop/notifications.firebase.svg)](https://clojars.org/dev.gethop/notifications.firebase)
 
 # Firebase notifications
 
@@ -9,7 +9,7 @@ for managing notifications in [Firebase Cloud Messaging](https://firebase.google
 
 ## Installation
 
-[![Clojars Project](https://clojars.org/magnet/notifications.firebase/latest-version.svg)](https://clojars.org/magnet/notifications.firebase)
+[![Clojars Project](https://clojars.org/dev.gethop/notifications.firebase/latest-version.svg)](https://clojars.org/dev.gethop/notifications.firebase)
 
 ## Usage
 
