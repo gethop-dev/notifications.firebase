@@ -133,9 +133,9 @@
   (send-notification-async [_ logger recipient message opts]
     (send-notification-async firebaseApp logger recipient message opts)))
 
-(defmethod ig/init-key :magnet.notifications/firebase [_ {:keys [google-credentials]}]
+(defmethod ig/init-key :dev.gethop.notifications/firebase [_ {:keys [google-credentials]}]
   (let [firebaseApp (init-firebase-app! google-credentials)]
     (->Firebase firebaseApp)))
 
-(defmethod ig/halt-key! :magnet.notifications/firebase [_ {:keys [^FirebaseApp firebaseApp]}]
+(defmethod ig/halt-key! :dev.gethop.notifications/firebase [_ {:keys [^FirebaseApp firebaseApp]}]
   (.delete firebaseApp))
