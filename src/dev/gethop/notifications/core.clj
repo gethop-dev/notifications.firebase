@@ -1,4 +1,4 @@
-(ns magnet.notifications.core
+(ns dev.gethop.notifications.core
   (:require [clojure.spec.alpha :as s]))
 
 (s/def ::logger any?)

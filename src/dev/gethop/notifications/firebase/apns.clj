@@ -1,4 +1,4 @@
-(ns magnet.notifications.firebase.apns
+(ns dev.gethop.notifications.firebase.apns
   (:require [clojure.walk :as walk])
   (:import [com.google.firebase.messaging ApnsConfig Aps]))
 

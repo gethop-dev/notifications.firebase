@@ -1,6 +1,6 @@
-(ns magnet.notifications.firebase.config
-  (:require [magnet.notifications.firebase.android :as android]
-            [magnet.notifications.firebase.apns :as apns])
+(ns dev.gethop.notifications.firebase.config
+  (:require [dev.gethop.notifications.firebase.android :as android]
+            [dev.gethop.notifications.firebase.apns :as apns])
   (:import [com.google.firebase.messaging MulticastMessage$Builder]))
 
 (defn set-message-config

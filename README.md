@@ -17,7 +17,7 @@ for managing notifications in [Firebase Cloud Messaging](https://firebase.google
 
 To use this library add the following key to your configuration:
 
-`:magnet.notifications/firebase`
+`:dev.gethop.notifications/firebase`
 
 This key expects a configuration map with one mandatory key:
 
@@ -32,7 +32,7 @@ Key initialization returns a `Firebase` record that can be used to perform the F
 
 #### Configuration example
 ```edn
-   :magnet.notifications/firebase
+   :dev.gethop.notifications/firebase
    {:google-credentials {:project-id #duct/env ["G_CREDENTIALS_PROJECT_ID" Str]
                          :private-key-id #duct/env ["G_CREDENTIALS_PRIVATE_KEY_ID" Str]
                          :private-key #duct/env ["G_CREDENTIALS_PRIVATE_KEY" Str]
@@ -48,7 +48,7 @@ First we require the relevant namespaces:
 
 ```clj
 user> (require '[integrant.core :as ig]
-               '[magnet.notifications.core :as core])
+               '[dev.gethop.notifications.core :as core])
 nil
 user>
 ```
@@ -65,10 +65,10 @@ user> (def config {:google-credentials {:project-id (System/getEnv "G_CREDENTIAL
 user>
 ```
 
-Now that we have all pieces in place, we can initialize the `:magnet.notifications/firebase` Integrant key to get a `Firebase` record. As we are doing all this from the REPL, we have to manually require `magnet.notifications.firebase` namespace, where the `init-key` multimethod for that key is defined (this is not needed when Duct takes care of initializing the key as part of the application start up):
+Now that we have all pieces in place, we can initialize the `:dev.gethop.notifications/firebase` Integrant key to get a `Firebase` record. As we are doing all this from the REPL, we have to manually require `dev.gethop.notifications.firebase` namespace, where the `init-key` multimethod for that key is defined (this is not needed when Duct takes care of initializing the key as part of the application start up):
 
 ``` clj
-user> (require '[magnet.notifications.firebase :as firebase])
+user> (require '[dev.gethop.notifications.firebase :as firebase])
 nil
 user>
 ```
@@ -78,15 +78,15 @@ And we finally initialize the key with the configuration defined above, to get o
 ``` clj
 user> (def fb-record (->
                        config
-                       (->> (ig/init-key :magnet.notifications/firebase))))
+                       (->> (ig/init-key :dev.gethop.notifications/firebase))))
 #'user/fb-record
 user> fb-record
-#magnet.notifications.firebase.Firebase{:service-credentials #object[com.google.auth.oauth2.ServiceAccountCredentials
+#dev.gethop.notifications.firebase.Firebase{:service-credentials #object[com.google.auth.oauth2.ServiceAccountCredentials
                                                               0x307d05cf
                                                               "ServiceAccountCredentials{...}"}
 user>
 ```
-Now that we have our `Firebase` record, we are ready to use the methods defined by the protocols defined in `magnet.notifications.core` namespace.
+Now that we have our `Firebase` record, we are ready to use the methods defined by the protocols defined in `dev.gethop.notifications.core` namespace.
 
 ### Usage
 #### `send-notification`
@@ -131,7 +131,7 @@ block the main thread.
 
 ```clj
 user> (def result (core/send-notification fb-record logger "token1" {:header "Hello"} {}))
-#'magnet.notifications.firebase/a
+#'dev.gethop.notifications.firebase/a
 
 user> result
 #<Future@4413771e: :pending>

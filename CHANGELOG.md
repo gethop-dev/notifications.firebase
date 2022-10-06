@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. This change
 ## [0.1.8] - 2022-04-03
 
 ### Added
-- Add an additional internal implementation error that also produces a `:magnet.notifications.core/invalid-recipient` error.
+- Add an additional internal implementation error that also produces a `:dev.gethop.notifications.core/invalid-recipient` error.
 
 ## [0.1.7] - 2022-04-25
 - Return implementation agnostic errors. We now provide a spec for the errors returned from the library functions. The spec includes both the mandatory implementation-agnostic error values, and the optional implementation-specific error details.

@@ -1,10 +1,10 @@
-(ns magnet.notifications.firebase
+(ns dev.gethop.notifications.firebase
   (:require [clojure.spec.alpha :as s]
             [clojure.string :as str]
+            [dev.gethop.notifications.core :as core]
+            [dev.gethop.notifications.firebase.config :as config]
             [duct.logger :refer [log]]
-            [integrant.core :as ig]
-            [magnet.notifications.core :as core]
-            [magnet.notifications.firebase.config :as config])
+            [integrant.core :as ig])
   (:import [com.google.auth.oauth2 ServiceAccountCredentials]
            [com.google.firebase FirebaseApp FirebaseOptions]
            [com.google.firebase.messaging

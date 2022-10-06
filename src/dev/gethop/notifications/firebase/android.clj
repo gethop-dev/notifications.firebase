@@ -1,4 +1,4 @@
-(ns magnet.notifications.firebase.android
+(ns dev.gethop.notifications.firebase.android
   (:import [com.google.firebase.messaging AndroidConfig AndroidConfig$Priority]))
 
 (defn- android-priority->AndroidMessagePriority [priority]
