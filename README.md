@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.com/magnetcoop/notifications.firebase.svg?branch=master)](https://travis-ci.com/magnetcoop/notifications.firebase)
+[![ci-cd](https://github.com/gethop-dev/notifications.firebase/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/gethop-dev/notifications.firebase/actions/workflows/ci-cd.yml)
 [![Clojars Project](https://img.shields.io/clojars/v/magnet/notifications.firebase.svg)](https://clojars.org/magnet/notifications.firebase)
 
 # Firebase notifications
