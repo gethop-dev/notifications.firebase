@@ -1,7 +1,7 @@
 (defproject dev.gethop/notifications.firebase "0.1.8"
   :description "A duct library for managing notifications with Firebase Cloud Messaging"
   :url "http://github.com/gethop-dev/notifications.firebase"
-  :min-lein-version "2.9.0"
+  :min-lein-version "2.9.8"
   :license {:name "Mozilla Public License 2.0"
             :url "https://www.mozilla.org/en-US/MPL/2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
