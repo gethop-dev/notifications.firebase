@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file. This change
 
 ## [UNRELEASED]
 
+## [0.1.10] - 2022-10-06
+### Fixed
+- Integrant keys references not following dev.gethop pattern
+
 ## [0.1.9] - 2022-10-06
 ### Changed
 - Moving the repository to [gethop-dev](https://github.com/gethop-dev) organization
