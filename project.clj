@@ -1,4 +1,4 @@
-(defproject dev.gethop/notifications.firebase "0.1.10"
+(defproject dev.gethop/notifications.firebase "0.1.11-SNAPSHOT"
   :description "A duct library for managing notifications with Firebase Cloud Messaging"
   :url "http://github.com/gethop-dev/notifications.firebase"
   :min-lein-version "2.9.8"
