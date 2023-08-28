@@ -134,11 +134,13 @@
     (send-notification-async firebaseApp logger recipient message opts)))
 
 (defn init-record
+  "Initiates the Firebase record"
   [{:keys [google-credentials] :as _config}]
   (let [firebaseApp (init-firebase-app! google-credentials)]
     (->Firebase firebaseApp)))
 
 (defn halt-record
+  "Halts the Firebase record"
   [{:keys [^FirebaseApp firebaseApp] :as _record}]
   (.delete firebaseApp))
 
