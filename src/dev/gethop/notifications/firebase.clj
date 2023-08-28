@@ -133,9 +133,17 @@
   (send-notification-async [_ logger recipient message opts]
     (send-notification-async firebaseApp logger recipient message opts)))
 
-(defmethod ig/init-key :dev.gethop.notifications/firebase [_ {:keys [google-credentials]}]
+(defn init-record
+  [{:keys [google-credentials] :as _config}]
   (let [firebaseApp (init-firebase-app! google-credentials)]
     (->Firebase firebaseApp)))
 
-(defmethod ig/halt-key! :dev.gethop.notifications/firebase [_ {:keys [^FirebaseApp firebaseApp]}]
+(defn halt-record
+  [{:keys [^FirebaseApp firebaseApp] :as _record}]
   (.delete firebaseApp))
+
+(defmethod ig/init-key :dev.gethop.notifications/firebase [_ config]
+  (init-record config))
+
+(defmethod ig/halt-key! :dev.gethop.notifications/firebase [_ record]
+  (halt-record record))
