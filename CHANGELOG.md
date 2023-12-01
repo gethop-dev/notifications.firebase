@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file. This change
 
 ## [0.1.7] - 2022-04-25
 - Return implementation agnostic errors. We now provide a spec for the errors returned from the library functions. The spec includes both the mandatory implementation-agnostic error values, and the optional implementation-specific error details.
-- Make internal implementatino details private
+- Make internal implementation details private
 - Upgrade to the latest version of Firebase library
 
 ## [0.1.6] - 2021-02-24
@@ -57,7 +57,9 @@ All notable changes to this project will be documented in this file. This change
 ## [0.1.0] - 2020-06-17
 - First release
 
-[UNRELEASED]: https://github.com/gethop-dev/notifications.firebase/compare/v0.1.10...HEAD
+[UNRELEASED]: https://github.com/gethop-dev/notifications.firebase/compare/v0.1.12...HEAD
+[0.1.12]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.11...0.1.12
+[0.1.11]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.10...0.1.11
 [0.1.10]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.9...0.1.10
 [0.1.9]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.8...0.1.9
 [0.1.8]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.7...0.1.8
