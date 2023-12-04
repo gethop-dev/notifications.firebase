@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file. This change
 
 ## [UNRELEASED]
 
+## 0.1.13 - 2023-12-04
+### Fixed
+- Modify recipient specs to avoid blank strings
+
 ## [0.1.12] - 2022-08-31
 ### Added
 - Add debug level logging to firebase functions

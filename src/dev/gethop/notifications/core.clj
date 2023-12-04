@@ -1,9 +1,11 @@
 (ns dev.gethop.notifications.core
-  (:require [clojure.spec.alpha :as s]))
+  (:require [clojure.spec.alpha :as s]
+            [clojure.string :as str]))
 
 (s/def ::logger any?)
 (s/def ::recipients (s/coll-of string? :kind seqable?))
-(s/def ::recipient (s/or :single string?
+(s/def ::recipient (s/or :single (s/and string?
+                                        (complement str/blank?))
                          :multiple ::recipients))
 (s/def ::message-values (s/or :string string?
                               :number number?
