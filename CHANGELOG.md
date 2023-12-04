@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file. This change
 
 ## [UNRELEASED]
 
-## 0.1.13 - 2023-12-04
+## [0.1.13] - 2023-12-04
 ### Fixed
 - Modify recipient specs to avoid blank strings
 
@@ -62,6 +62,7 @@ All notable changes to this project will be documented in this file. This change
 - First release
 
 [UNRELEASED]: https://github.com/gethop-dev/notifications.firebase/compare/v0.1.12...HEAD
+[0.1.13]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.12...0.1.13
 [0.1.12]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.11...0.1.12
 [0.1.11]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.10...0.1.11
 [0.1.10]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.9...0.1.10
