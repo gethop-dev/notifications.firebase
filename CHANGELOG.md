@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file. This change
 
 ## [UNRELEASED]
 
+## [0.1.14] - 2024-11-04
+### Changed
+- Upgrade dependencies: 
+  - `com.google.firebase/firebase-admin:9.4.1`
+  - `org.clojure/clojure:1.12.0`
+- Replace `.sendMulticast()` due to deprecation with `.sendEachForMulticast()` as the firebase-admin documentation suggests
+
 ## [0.1.13] - 2023-12-04
 ### Fixed
 - Modify recipient specs to avoid blank strings
@@ -61,7 +68,8 @@ All notable changes to this project will be documented in this file. This change
 ## [0.1.0] - 2020-06-17
 - First release
 
-[UNRELEASED]: https://github.com/gethop-dev/notifications.firebase/compare/v0.1.12...HEAD
+[UNRELEASED]: https://github.com/gethop-dev/notifications.firebase/compare/v0.1.14...HEAD
+[0.1.14]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.13...0.1.14
 [0.1.13]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.12...0.1.13
 [0.1.12]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.11...0.1.12
 [0.1.11]: https://github.com/gethop-dev/notifications.firebase/compare/0.1.10...0.1.11
