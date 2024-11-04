@@ -1,13 +1,13 @@
-(defproject dev.gethop/notifications.firebase "0.1.14-SNAPSHOT"
+(defproject dev.gethop/notifications.firebase "0.1.13-SNAPSHOT"
   :description "A duct library for managing notifications with Firebase Cloud Messaging"
   :url "http://github.com/gethop-dev/notifications.firebase"
   :min-lein-version "2.9.8"
   :license {:name "Mozilla Public License 2.0"
             :url "https://www.mozilla.org/en-US/MPL/2.0/"}
-  :dependencies [[org.clojure/clojure "1.10.0"]
+  :dependencies [[org.clojure/clojure "1.12.0"]
                  [duct/logger "0.3.0"]
                  [integrant "0.8.0"]
-                 [com.google.firebase/firebase-admin "8.1.0"]]
+                 [com.google.firebase/firebase-admin "9.4.1"]]
   :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"
                                       :username :env/CLOJARS_USERNAME
                                       :password :env/CLOJARS_PASSWORD
