@@ -83,7 +83,7 @@
                                       (config/set-message-config opts))
         multicast-message (.build ^MulticastMessage$Builder multicast-message-builder)
         response (-> (FirebaseMessaging/getInstance firebaseApp)
-                     (.sendMulticast multicast-message))]
+                     (.sendEachForMulticast multicast-message))]
     (if (= (.getSuccessCount response) (count recipient))
       {:success? true}
       (let [errors (firebase-responses->errors recipient (.getResponses response))]
